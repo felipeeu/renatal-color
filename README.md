@@ -1,6 +1,5 @@
 # renatal-color
-
-A Clojure library designed to ... well, that part is up to you.
+Um misturardor de cores primárias da luz .
 
 ## Usage
 
