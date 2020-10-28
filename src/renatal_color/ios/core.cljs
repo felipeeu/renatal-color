@@ -27,9 +27,9 @@
 
 (defn button [label color event code flag & style]
   [view  [touchable-highlight  {:style (merge style {:backgroundColor color
-                                        :padding 10})
+                                                     :padding 10})
                                        
-                                   :on-press #(dispatch [event code flag])}
+                                       :on-press #(dispatch [event code flag])}
           [text {:style {:color "white"
                          :text-align "center"
                          :font-weight "bold"}} label]]])
@@ -40,8 +40,8 @@
   [view  {:style {:backgroundColor (str "rgb(" red "," green "," blue ")") 
                   :width 200 
                   :height 200 
-                  :borderRadius 200 
-                  }}])
+                  :borderRadius 200}}]) 
+                  
 
 (defn app-root []
   (let [red (subscribe [:red-code])
@@ -66,44 +66,30 @@
                     :justifyContent "space-between" 
                     :align-items "center"}}
       [view 
-       (button "+" "red" :change-red-code @red "inc" {:borderTopLeftRadius 10 :borderTopRightRadius 10 })
+       (button "+" "red" :change-red-code @red "inc" {:borderTopLeftRadius 10 :borderTopRightRadius 10})
        [text{:style (merge text-style {:backgroundColor "red"})} "R"]
-       (button "-" "red" :change-red-code @red "dec" {:borderBottomLeftRadius 10 :borderBottomRightRadius 10 })]
+       (button "-" "red" :change-red-code @red "dec" {:borderBottomLeftRadius 10 :borderBottomRightRadius 10})]
       [view {:style {:marginRight 10 :marginLeft 10}}
-       (button "+" "green" :change-green-code @green "inc" {:borderTopLeftRadius 10 :borderTopRightRadius 10 })
+       (button "+" "green" :change-green-code @green "inc" {:borderTopLeftRadius 10 :borderTopRightRadius 10})
        [text {:style (merge text-style {:backgroundColor "green"})} "G"]
-       (button "-" "green" :change-green-code @green "dec"{:borderBottomLeftRadius 10 :borderBottomRightRadius 10 })]
+       (button "-" "green" :change-green-code @green "dec"{:borderBottomLeftRadius 10 :borderBottomRightRadius 10})]
       [view 
-       (button "+" "blue" :change-blue-code @blue "inc" {:borderTopLeftRadius 10 :borderTopRightRadius 10 })
+       (button "+" "blue" :change-blue-code @blue "inc" {:borderTopLeftRadius 10 :borderTopRightRadius 10})
        [text {:style (merge text-style {:backgroundColor "blue" })} "B"]
-       (button "-" "blue" :change-blue-code @blue "dec" {:borderBottomLeftRadius 10 :borderBottomRightRadius 10 })]]
+       (button "-" "blue" :change-blue-code @blue "dec" {:borderBottomLeftRadius 10 :borderBottomRightRadius 10})]]
       
       
      [view {:style {:borderRadius 80 :backgroundColor (str "rgb(" (+ 256 (* -1 @red)) ","(+ 256 (* -1 @green)) "," (+ 256 (* -1 @blue)) ")")  }}[image {:source logo-img
-               :style  {:width 80 :height 80 }}]]
+                                                                                                                                                        :style  {:width 80 :height 80}}]]
      [view {:style {:flex-direction "row"   
                     :align-items "center"
-                    :marginTop 40
-                    }}
+                    :marginTop 40}}
+                    
       [text {:style (merge text-style {:backgroundColor @current-color})} @red]
       [text {:style (merge text-style {:backgroundColor  @current-color :marginLeft 10 :marginRight 10})} @green]
       [text {:style (merge text-style {:backgroundColor @current-color})} @blue]]
      (button "Reset" "black" :reset-code 0 "reset")]))
 
-
-
-; (defn app-root []
-;   (let [greeting (subscribe [:get-greeting])]
-
-;     (fn []
-;       [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
-;        [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @greeting]
-;        [image {:source logo-img
-;                :style  {:width 80 :height 80 :margin-bottom 30}}]
-;        [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
-;                              :on-press #(alert "HELLO!")}
-
-;         [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]])))
 
 
 (defn init []
