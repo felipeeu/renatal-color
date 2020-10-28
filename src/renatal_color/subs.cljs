@@ -20,3 +20,8 @@
  :blue-code
  (fn [db]
    (:blue-code db)))
+
+(reg-sub
+ :current-color
+ (fn [db]
+   (:current-color db)))

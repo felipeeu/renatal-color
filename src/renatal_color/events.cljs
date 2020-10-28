@@ -36,22 +36,22 @@
 
 (reg-event-db
  :change-red-code
- (fn [db [_ code]]
-(println "DB: " db "CODE: " code)
-   (assoc db  :red-code (+ 8 code))))
+ (fn [db [_ code flag]]
+
+   (assoc db  :red-code (if (= "inc" flag) (+ 8 code) (+ -1 code) ) :current-color "red")))
 
 (reg-event-db
  :change-green-code
- (fn [db [_ code]]
-   (assoc db  :green-code (+ 8 code))))
+ (fn [db [_ code flag]]
+   (assoc db  :green-code (if (= "inc" flag) (+ 8 code) (+ -1 code) ) :current-color "green")))
 
 (reg-event-db
  :change-blue-code
- (fn [db [_ code]]
-   (assoc db  :blue-code (+ 8 code))))
+ (fn [db [_ code flag]]
+   (assoc db  :blue-code (if (= "inc" flag) (+ 8 code) (+ -1 code) ) :current-color "blue")))
 
 (reg-event-db
  :reset-code
- (fn [db [_ code]]
-   (assoc db :red-code code :green-code code :blue-code code)))
+ (fn [db [_ code _]]
+   (assoc db :red-code code :green-code code :blue-code code :current-color "black")))
 
