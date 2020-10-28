@@ -18,28 +18,32 @@
   (.alert (.-Alert ReactNative) title))
 
 (defn button [label color event code]
-  [touchable-highlight  {:style {:backgroundColor color} :on-press #(dispatch [event code])}  [text {:style {:color "white" :text-align "center" :font-weight "bold"}} label]])
+  [view  [touchable-highlight  {:style {:backgroundColor color :padding 20 :marginLeft 10 :borderRadius 3} :on-press #(dispatch [event code])}  [text {:style {:color "white" :text-align "center" :font-weight "bold"}} label]]])
 
 (defn color-board [red green blue]
-  [view  {:style {:backgroundColor (str "rgba"  "(" red  "," green "," blue ")") :width 20 :height 20}}])
+ (println "Color-code: " red " " green " " blue)
+ [view  {:style {:backgroundColor (str "rgb("red ","green","blue ")") :width 80 :height 50   :align-items "center"}}])
 
 (defn app-root []
   (let [red (subscribe [:red-code])
         green (subscribe [:green-code])
         blue (subscribe [:blue-code])]
+        
+       (println "BLUE <<< " @blue)
 
-    [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
-    ;  [text "Color mix "]
-
-     (button "R" "red" :change-red-code @red)
-     (button "G" "green" :change-green-code @green)
-     (button "B" "blue" :change-blue-code @blue)
-     (button "reset" "pink" :reset-code 0)
-
+    [view {:style {:backgroundColor "gray" :flex-direction "column" :flex 1 :justifyContent "space-evenly" :margin 40 :align-items "center" :borderWidth 2 }}
+     [text {:style {:flex-direction "column" :marginTop 60 :align-items "center"}} "Color mix "]
+    ;  [view  {:style {:backgroundColor (str "rgb("@red ","@green","@blue ")") :width 80 :height 50   :align-items "center"}}]
      (color-board @red @green @blue)
-     [text @red]
-     [text @green]
-     [text @blue]]))
+     [view {:style {:flex-direction "row" :flex 0.5 :justifyContent "space-between" :align-items "center"}}
+      (button "R" "red" :change-red-code @red)
+      (button "G" "green" :change-green-code @green)
+      (button "B" "blue" :change-blue-code @blue)
+      (button "reset" "pink" :reset-code 0)]
+     [view {:style {:backgrondColor "blue" :flex-direction "row"   :margin 40 :align-items "center"}}
+      [text {:style {:padding 10 :marginRight 20 :textAlign "center" :backgroundColor "white" :width "auto" :height "auto"}} @red]
+      [text {:style {:padding 10 :marginRight 20 :textAlign "center" :backgroundColor "white" :width 50 :height 50}} @green]
+      [text {:style {:padding 10 :textAlign "center" :backgroundColor "white" :width 50 :height 50}} @blue]]]))
 
 ; (defn app-root []
 ;   (let [greeting (subscribe [:get-greeting])]
@@ -53,6 +57,7 @@
 ;                              :on-press #(alert "HELLO!")}
 
 ;         [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]])))
+
 
 (defn init []
   (dispatch-sync [:initialize-db])

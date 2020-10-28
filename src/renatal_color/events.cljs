@@ -37,20 +37,21 @@
 (reg-event-db
  :change-red-code
  (fn [db [_ code]]
-   (println "DB: " db "CODE: " code)
-   (assoc db :red-code (+ 8 code))))
+(println "DB: " db "CODE: " code)
+   (assoc db  :red-code (+ 8 code))))
 
 (reg-event-db
  :change-green-code
  (fn [db [_ code]]
-   (assoc db :green-code (+ 8 code))))
+   (assoc db  :green-code (+ 8 code))))
 
 (reg-event-db
  :change-blue-code
  (fn [db [_ code]]
-   (assoc db :blue-code (+ 8 code))))
+   (assoc db  :blue-code (+ 8 code))))
 
 (reg-event-db
  :reset-code
  (fn [db [_ code]]
    (assoc db :red-code code :green-code code :blue-code code)))
+
